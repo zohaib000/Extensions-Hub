@@ -70,7 +70,6 @@ etelemetry==0.3.0
 fake-useragent==0.1.11
 Faker==13.11.1
 fastapi==0.72.0
-fb-down==1.0.1
 filelock==3.0.12
 filetype==1.0.9
 fitz==0.0.1.dev2

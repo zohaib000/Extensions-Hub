@@ -201,7 +201,6 @@ stripe
 typer
 typing-extensions
 tzdata
-urllib3
 utils
 uvicorn
 watchdog

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Privacy Policy - {{ extension.title }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ extension.get_absolute_url }}">{{ extension.title }}</a></li>
+                    <li class="breadcrumb-item active">Privacy Policy</li>
+                </ol>
+            </nav>
+            
+            <div class="d-flex align-items-center mb-4">
+                <img src="{{ extension.main_image.url }}" class="rounded me-3" alt="{{ extension.title }}" style="width: 64px; height: 64px; object-fit: cover;">
+                <div>
+                    <h1 class="h2 mb-1">Privacy Policy</h1>
+                    <p class="text-muted mb-0">{{ extension.title }}</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="content-html">
+                        {{ extension.privacy_policy|safe }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <a href="{{ extension.get_absolute_url }}" class="btn btn-primary">
+                    ← Back to {{ extension.title }}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

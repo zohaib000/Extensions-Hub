@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Privacy Policy - Chrome Extensions Hub{% endblock %}
+
+{% block meta_description %}Read our privacy policy to understand how we collect, use, and protect your personal information.{% endblock %}
+
+{% block content %}
+<!-- Header Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="display-5 fw-bold mb-3">Privacy Policy</h1>
+                <p class="lead text-muted">Your privacy is important to us. This policy explains how we collect, use, and protect your information.</p>
+                <small class="text-muted">Last updated: January 1, 2024</small>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Privacy Policy Content -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                {% if site_settings and site_settings.general_privacy_policy %}
+                    <div class="prose">
+                        {{ site_settings.general_privacy_policy|linebreaks }}
+                    </div>
+                {% else %}
+                    <!-- Default Privacy Policy Content -->
+                    <div class="mb-5">
+                        <h2 class="h3 fw-bold mb-4">1. Information We Collect</h2>
+                        <p>We collect information you provide directly to us, such as when you create an account, use our extensions, or contact us for support. This may include:</p>
+                        <ul>
+                            <li>Name and email address</li>
+                            <li>Usage data and analytics</li>
+                            <li>Device and browser information</li>
+                            <li>Extension preferences and settings</li>
+                        </ul>
+                    </div>
+
+                    <div class="mb-5">
+                        <h2 class="h3 fw-bold mb-4">2. How We Use Your Information</h2>
+                        <p>We use the information we collect to:</p>
+                        <ul>
+                            <li>Provide, maintain, and improve our extensions</li>
+                            <li>Send you technical notices and support messages</li>
+                            <li>Respond to your comments and questions</li>
+                            <li>Analyze usage patterns to enhance user experience</li>
+                            <li>Detect and prevent fraudulent or unauthorized activity</li>
+                        </ul>
+                    </div>
+
+                    <div class="mb-5">
+                        <h2 class="h3 fw-bold mb-4">3. Information Sharing</h2>
+                        <p>We do not sell, trade, or otherwise transfer your personal information to third parties, except in the following circumstances:</p>
+                        <ul>
+                            <li>With your explicit consent</li>
+                            <li>To comply with legal obligations</li>
+                            <li>To protect our rights and prevent fraud</li>
+                            <li>With service providers who help us operate our business</li>
+                        </ul>
+                    </div>
+
+                    <div class="mb-5">
+                        <h2 class="h3 fw-bold mb-4">4. Data Security</h2>
+                        <p>We implement appropriate technical and organizational measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. These measures include:</p>
+                        <ul>
+                            <li>Encryption of data in transit and at rest</li>
+                            <li>Regular security audits and assessments</li>
+                            <li>Access controls and authentication</li>
+                            <li>Employee training on data protection</li>
+                        </ul>
+                    </div>
+
+                    <div class="mb-5">
+                        <h2 class="h3 fw-bold mb-4">5. Chrome Extension Permissions</h2>
+                        <p>Our Chrome extensions may request certain permissions to function properly. We only request permissions that are necessary for the extension's core functionality:</p>
+                        <ul>
+                            <li><strong>Active Tab:</strong> To interact with the current webpage when you explicitly activate the extension</li>
+                            <li><strong>Storage:</strong> To save your preferences and settings locally</li>
+                            <li><strong>Host Permissions:</strong> Only for specific websites where the extension provides functionality</li>
+                        </ul>
+                        <p>We do not access or collect data beyond what is necessary for the extension's stated purpose.</p>
+                    </div>
+
+                    <div class="mb-5">
+                        <h2 class="h3 fw-bold mb-4">6. Cookies and Tracking</h2>
+                        <p>We use cookies and similar technologies to:</p>
+                        <ul>
+                            <li>Remember your preferences and settings</li>
+                            <li>Analyze website usage and performance</li>
+                            <li>Provide personalized content and features</li>
+                        </ul>
+                        <p>You can control cookie settings through your browser preferences. However, disabling cookies may affect the functionality of our website and extensions.</p>
+                    </div>
+
+                    <div class="mb-5">
+                        <h2 class="h3 fw-bold mb-4">7. Your Rights</h2>
+                        <p>Depending on your location, you may have certain rights regarding your personal information:</p>
+                        <ul>
+                            <li><strong>Access:</strong> Request access to your personal information</li>
+                            <li><strong>Correction:</strong> Request correction of inaccurate information</li>
+                            <li><strong>Deletion:</strong> Request deletion of your personal information</li>
+                            <li><strong>Portability:</strong> Request a copy of your data in a portable format</li>
+                            <li><strong>Objection:</strong> Object to certain processing activities</li>
+                        </ul>
+                        <p>To exercise these rights, please contact us using the information provided below.</p>
+                    </div>
+
+                    <div class="mb-5">
+                        <h2 class="h3 fw-bold mb-4">8. Children's Privacy</h2>
+                        <p>Our services are not intended for children under 13 years of age. We do not knowingly collect personal information from children under 13. If we become aware that a child under 13 has provided us with personal information, we will take steps to delete such information.</p>
+                    </div>
+
+                    <div class="mb-5">
+                        <h2 class="h3 fw-bold mb-4">9. International Data Transfers</h2>
+                        <p>Your information may be transferred to and processed in countries other than your country of residence. We ensure that such transfers comply with applicable data protection laws and provide appropriate safeguards.</p>
+                    </div>
+
+                    <div class="mb-5">
+                        <h2 class="h3 fw-bold mb-4">10. Changes to This Privacy Policy</h2>
+                        <p>We may update this privacy policy from time to time. We will notify you of any changes by posting the new privacy policy on this page and updating the "Last updated" date. Your continued use of our services after any changes constitutes acceptance of the updated policy.</p>
+                    </div>
+
+                    <div class="mb-5">
+                        <h2 class="h3 fw-bold mb-4">11. Contact Us</h2>
+                        <p>If you have any questions about this privacy policy or our data practices, please contact us:</p>
+                        <ul class="list-unstyled">
+                            <li><strong>Email:</strong> 
+                                {% if site_settings and site_settings.contact_email %}
+                                    <a href="mailto:{{ site_settings.contact_email }}">{{ site_settings.contact_email }}</a>
+                                {% else %}
+                                    <a href="mailto:huzaifakalas897@gmail.com">huzaifakalas897@gmail.com</a>
+                                {% endif %}
+                            </li>
+                            <li><strong>Contact Form:</strong> <a href="{% url 'contact_us' %}">Contact Us Page</a></li>
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Related Links -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h3 class="fw-bold mb-4">Related Information</h3>
+                <div class="d-flex flex-wrap justify-content-center gap-3">
+                    <a href="{% url 'terms_of_service' %}" class="btn btn-outline-primary">Terms of Service</a>
+                    <a href="{% url 'contact_us' %}" class="btn btn-outline-primary">Contact Us</a>
+                    <a href="{% url 'support' %}" class="btn btn-outline-primary">Support Center</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

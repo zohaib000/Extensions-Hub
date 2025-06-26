@@ -1,0 +1,468 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Support & Help - Chrome Extensions Hub{% endblock %}
+
+{% block meta_description %}Find help and support for our Chrome extensions. Browse FAQs, tutorials, and contact our support team.{% endblock %}
+
+{% block content %}
+<!-- Header Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="display-5 fw-bold mb-3">Support & Help Center</h1>
+                <p class="lead text-muted">Get help with our Chrome extensions. Find answers to common questions or contact our support team.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Search Section -->
+<section class="py-4 bg-primary">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mx-auto">
+                <div class="input-group input-group-lg">
+                    <input type="text" class="form-control" placeholder="Search for help articles..." id="helpSearch">
+                    <button class="btn btn-light" type="button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Quick Help Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                <h2 class="h3 fw-bold mb-4">Quick Help</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 text-center border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <i class="fas fa-download text-primary mb-3" style="font-size: 3rem;"></i>
+                        <h5 class="card-title">Installing Extensions</h5>
+                        <p class="card-text text-muted">Learn how to install and set up our Chrome extensions in just a few clicks.</p>
+                        <a href="#installation" class="btn btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 text-center border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <i class="fas fa-cog text-primary mb-3" style="font-size: 3rem;"></i>
+                        <h5 class="card-title">Configuration Help</h5>
+                        <p class="card-text text-muted">Get help configuring extension settings and customizing features to your needs.</p>
+                        <a href="#configuration" class="btn btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 text-center border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <i class="fas fa-bug text-primary mb-3" style="font-size: 3rem;"></i>
+                        <h5 class="card-title">Troubleshooting</h5>
+                        <p class="card-text text-muted">Fix common issues and problems with our step-by-step troubleshooting guides.</p>
+                        <a href="#troubleshooting" class="btn btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="py-5 bg-light" id="faq">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                <h2 class="h3 fw-bold mb-4">Frequently Asked Questions</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="accordion" id="faqAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faq1">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">
+                                How do I install a Chrome extension?
+                            </button>
+                        </h2>
+                        <div id="collapse1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <ol>
+                                    <li>Visit the extension's page on our website</li>
+                                    <li>Click the "Chrome Store" button</li>
+                                    <li>On the Chrome Web Store page, click "Add to Chrome"</li>
+                                    <li>Confirm the installation by clicking "Add extension"</li>
+                                    <li>The extension icon will appear in your browser toolbar</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faq2">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
+                                Why isn't my extension working?
+                            </button>
+                        </h2>
+                        <div id="collapse2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Try these troubleshooting steps:
+                                <ol>
+                                    <li>Refresh the webpage you're trying to use the extension on</li>
+                                    <li>Check if the extension is enabled in Chrome's extension settings</li>
+                                    <li>Restart your Chrome browser</li>
+                                    <li>Update Chrome to the latest version</li>
+                                    <li>Disable other extensions that might conflict</li>
+                                </ol>
+                                If the problem persists, contact our support team.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faq3">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">
+                                How do I update an extension?
+                            </button>
+                        </h2>
+                        <div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Chrome extensions update automatically by default. To manually check for updates:
+                                <ol>
+                                    <li>Go to chrome://extensions/ in your browser</li>
+                                    <li>Turn on "Developer mode" in the top right</li>
+                                    <li>Click "Update" button</li>
+                                    <li>Chrome will check for and install any available updates</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faq4">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4">
+                                Are your extensions safe to use?
+                            </button>
+                        </h2>
+                        <div id="collapse4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Yes, all our extensions are:
+                                <ul>
+                                    <li>Thoroughly tested for security vulnerabilities</li>
+                                    <li>Reviewed and approved by the Chrome Web Store</li>
+                                    <li>Regularly updated to maintain compatibility and security</li>
+                                    <li>Built following Chrome's security best practices</li>
+                                    <li>Transparent about the permissions they require</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faq5">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5">
+                                How do I uninstall an extension?
+                            </button>
+                        </h2>
+                        <div id="collapse5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                To remove an extension:
+                                <ol>
+                                    <li>Go to chrome://extensions/ in your browser</li>
+                                    <li>Find the extension you want to remove</li>
+                                    <li>Click "Remove" button</li>
+                                    <li>Confirm removal in the popup dialog</li>
+                                </ol>
+                                Alternatively, right-click the extension icon in your toolbar and select "Remove from Chrome".
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faq6">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6">
+                                Do you offer refunds?
+                            </button>
+                        </h2>
+                        <div id="collapse6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Most of our extensions are free to use. For any premium features or paid extensions, refund policies depend on the specific extension and circumstances. Please contact our support team to discuss your specific situation.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Detailed Help Sections -->
+<section class="py-5" id="installation">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="h3 fw-bold mb-4">Installation Guide</h2>
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Step-by-Step Installation</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>Method 1: From Our Website</h6>
+                                <ol>
+                                    <li>Browse our extension collection</li>
+                                    <li>Click on the extension you want</li>
+                                    <li>Click "Chrome Store" button</li>
+                                    <li>Click "Add to Chrome" on the Chrome Web Store</li>
+                                    <li>Confirm installation</li>
+                                </ol>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>Method 2: Direct from Chrome Web Store</h6>
+                                <ol>
+                                    <li>Go to the Chrome Web Store</li>
+                                    <li>Search for our extension name</li>
+                                    <li>Click on the extension</li>
+                                    <li>Click "Add to Chrome"</li>
+                                    <li>Confirm installation</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-light" id="configuration">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="h3 fw-bold mb-4">Configuration Help</h2>
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Accessing Extension Settings</h5>
+                        <p>Most of our extensions can be configured through:</p>
+                        <ul>
+                            <li><strong>Extension Popup:</strong> Click the extension icon in your toolbar</li>
+                            <li><strong>Options Page:</strong> Right-click the extension icon and select "Options"</li>
+                            <li><strong>Chrome Settings:</strong> Go to chrome://extensions/ and click "Details" then "Extension options"</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Common Configuration Tasks</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>Permissions</h6>
+                                <ul>
+                                    <li>Grant necessary permissions for full functionality</li>
+                                    <li>Review and modify site access settings</li>
+                                    <li>Enable/disable specific features</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>Customization</h6>
+                                <ul>
+                                    <li>Set up keyboard shortcuts</li>
+                                    <li>Configure notification preferences</li>
+                                    <li>Customize appearance and themes</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5" id="troubleshooting">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="h3 fw-bold mb-4">Troubleshooting Guide</h2>
+                
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Common Issues and Solutions</h5>
+                        
+                        <div class="mb-4">
+                            <h6 class="text-primary">Extension Not Loading</h6>
+                            <ul>
+                                <li>Check if the extension is enabled in chrome://extensions/</li>
+                                <li>Reload the extension by clicking the refresh icon</li>
+                                <li>Restart Chrome browser</li>
+                                <li>Clear browser cache and cookies</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <h6 class="text-primary">Extension Missing from Toolbar</h6>
+                            <ul>
+                                <li>Click the puzzle piece icon in your toolbar</li>
+                                <li>Pin the extension by clicking the pin icon</li>
+                                <li>Alternatively, access via chrome://extensions/</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <h6 class="text-primary">Performance Issues</h6>
+                            <ul>
+                                <li>Disable other extensions temporarily to identify conflicts</li>
+                                <li>Update Chrome to the latest version</li>
+                                <li>Check if the website you're using is supported</li>
+                                <li>Clear extension data in settings</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <h6 class="text-primary">Permission Errors</h6>
+                            <ul>
+                                <li>Grant all required permissions when prompted</li>
+                                <li>Check site access settings in extension details</li>
+                                <li>Reload the page after granting permissions</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Support Section -->
+<section class="py-5 bg-primary text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="h3 fw-bold mb-3">Still Need Help?</h2>
+                <p class="lead mb-4">Our support team is here to help you with any questions or issues you may have.</p>
+                
+                <div class="row mb-4">
+                    <div class="col-md-4 mb-3">
+                        <div class="d-flex flex-column align-items-center">
+                            <i class="fas fa-envelope mb-2" style="font-size: 2rem;"></i>
+                            <h5>Email Support</h5>
+                            <p class="mb-0">
+                                {% if site_settings and site_settings.support_email %}
+                                    <a href="mailto:{{ site_settings.support_email }}" class="text-white">{{ site_settings.support_email }}</a>
+                                {% else %}
+                                    <a href="mailto:huzaifakalas897@gmail.com" class="text-white">huzaifakalas897@gmail.com</a>
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="d-flex flex-column align-items-center">
+                            <i class="fas fa-comments mb-2" style="font-size: 2rem;"></i>
+                            <h5>Contact Form</h5>
+                            <p class="mb-0">Get personalized help</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="d-flex flex-column align-items-center">
+                            <i class="fas fa-clock mb-2" style="font-size: 2rem;"></i>
+                            <h5>Response Time</h5>
+                            <p class="mb-0">Within 24 hours</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="d-flex flex-wrap justify-content-center gap-3">
+                    <a href="{% url 'contact_us' %}" class="btn btn-light btn-lg">Contact Support</a>
+                    <a href="{% url 'extensions_list' %}" class="btn btn-outline-light btn-lg">Browse Extensions</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Knowledge Base Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <h2 class="h3 fw-bold mb-4">Knowledge Base</h2>
+                <p class="text-muted">Browse our comprehensive guides and tutorials</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <i class="fas fa-book-open text-primary mb-3" style="font-size: 2rem;"></i>
+                        <h5 class="card-title">Getting Started Guide</h5>
+                        <p class="card-text text-muted">Complete guide for new users to get the most out of our extensions.</p>
+                        <a href="https://www.youtube.com/@USACoder-c8z" class="btn btn-outline-primary">Read Guide</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <i class="fas fa-video text-primary mb-3" style="font-size: 2rem;"></i>
+                        <h5 class="card-title">Video Tutorials</h5>
+                        <p class="card-text text-muted">Watch step-by-step video tutorials for our most popular extensions.</p>
+                        <a href="https://www.youtube.com/@USACoder-c8z" class="btn btn-outline-primary">Watch Videos</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <i class="fas fa-tools text-primary mb-3" style="font-size: 2rem;"></i>
+                        <h5 class="card-title">Advanced Tips</h5>
+                        <p class="card-text text-muted">Power user tips and tricks to maximize productivity with our tools.</p>
+                        <a href="https://www.youtube.com/@USACoder-c8z" class="btn btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Simple search functionality for help articles
+    const searchInput = document.getElementById('helpSearch');
+    if (searchInput) {
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const query = this.value.toLowerCase();
+                const accordionItems = document.querySelectorAll('.accordion-item');
+                
+                accordionItems.forEach(item => {
+                    const text = item.textContent.toLowerCase();
+                    if (text.includes(query)) {
+                        item.style.display = 'block';
+                        // Open the matching accordion item
+                        const button = item.querySelector('.accordion-button');
+                        const collapse = item.querySelector('.accordion-collapse');
+                        if (button && collapse) {
+                            button.classList.remove('collapsed');
+                            collapse.classList.add('show');
+                        }
+                    } else {
+                        item.style.display = query ? 'none' : 'block';
+                    }
+                });
+            }
+        });
+    }
+});
+</script>
+{% endblock %}
+{% endblock %}

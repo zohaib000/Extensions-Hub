@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}All Chrome Extensions - Discover Amazing Browser Tools{% endblock %}
+
+{% block meta_description %}Browse our complete collection of Chrome extensions. Find productivity tools, security extensions, and browser enhancements.{% endblock %}
+
+{% block content %}
+<!-- Header Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-5 fw-bold mb-3">All Chrome Extensions</h1>
+                <p class="lead text-muted">Discover our complete collection of browser extensions</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Extensions Grid -->
+<section class="py-5">
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <p class="text-muted mb-0">
+                        {% if page_obj.paginator.count %}
+                            Showing {{ page_obj.start_index }}-{{ page_obj.end_index }} of {{ page_obj.paginator.count }} extensions
+                        {% endif %}
+                    </p>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                            Sort by
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="?sort=latest">Latest</a></li>
+                            <li><a class="dropdown-item" href="?sort=popular">Most Popular</a></li>
+                            <li><a class="dropdown-item" href="?sort=rating">Highest Rated</a></li>
+                            <li><a class="dropdown-item" href="?sort=name">Name A-Z</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            {% for extension in extensions %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card extension-card h-100 shadow-sm border-0">
+                    <img src="{{ extension.main_image.url }}" class="card-img-top" alt="{{ extension.title }}" >
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">{{ extension.title }}</h5>
+                        <p class="card-text text-muted flex-grow-1">{{ extension.short_description|truncatechars:120 }}</p>
+                        
+                        {% if extension.rating > 0 or extension.downloads > 0 %}
+                        <div class="mb-3">
+                            {% if extension.rating > 0 %}
+                            <div class="d-flex align-items-center mb-1">
+                                <div class="me-2">
+                                    {% for i in "12345" %}
+                                        {% if forloop.counter <= extension.rating %}
+                                            <i class="fas fa-star text-warning"></i>
+                                        {% else %}
+                                            <i class="far fa-star text-muted"></i>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <small class="text-muted">{{ extension.rating }}/5</small>
+                            </div>
+                            {% endif %}
+                            {% if extension.downloads > 0 %}
+                            <small class="text-muted">
+                                <i class="fas fa-download"></i> {{ extension.downloads|floatformat:0 }} downloads
+                            </small>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                        
+                        <div class="d-grid gap-2">
+                            <a href="{{ extension.get_absolute_url }}" class="btn btn-outline-primary">View Details</a>
+                            <a href="{{ extension.chrome_store_url }}" target="_blank" class="btn btn-primary">
+                                <i class="fab fa-chrome me-1"></i>Chrome Store
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center py-5">
+                <div class="py-5">
+                    <i class="fas fa-puzzle-piece text-muted" style="font-size: 4rem;"></i>
+                    <h3 class="mt-3 text-muted">No Extensions Found</h3>
+                    <p class="text-muted">We're working on adding more amazing extensions. Check back soon!</p>
+                    <a href="{% url 'home' %}" class="btn btn-primary">Back to Home</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Pagination -->
+        {% if page_obj.has_other_pages %}
+        <nav aria-label="Extensions pagination" class="mt-5">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1" aria-label="First">
+                            <span aria-hidden="true">&laquo;&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+                
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <li class="page-item active" aria-current="page">
+                            <span class="page-link">{{ num }}</span>
+                        </li>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+                
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">
+                            <span aria-hidden="true">&raquo;&raquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5 bg-primary text-white">
+    <div class="container text-center">
+        <h2 class="h3 fw-bold mb-3">Don't See What You're Looking For?</h2>
+        <p class="lead mb-4">We're constantly adding new extensions. Contact us to suggest new tools!</p>
+        <a href="{% url 'contact_us' %}" class="btn btn-light btn-lg">Contact Us</a>
+    </div>
+</section>
+{% endblock %}

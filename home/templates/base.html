@@ -1,0 +1,257 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Chrome Extensions Hub{% endblock %}</title>
+    
+    {% block meta %}
+    <meta name="description" content="{% block meta_description %}Discover and download amazing Chrome extensions to enhance your browsing experience{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}chrome extensions, browser extensions, productivity tools{% endblock %}">
+    {% endblock %}
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            max-width: 100% !important;
+            padding: 0px !important;
+        
+        }
+        .content-wrapper {
+            flex: 1;
+        }
+        hr{
+            opacity: 1.25;
+            color: tomato;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .extension-card {
+            transition: transform 0.2s;
+        }
+        .extension-card:hover {
+            transform: translateY(-5px);
+        }
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+        }
+        .feature-icon {
+            font-size: 3rem;
+            color: #667eea;
+        }
+        
+        /* HTML Content Styling */
+        .content-html {
+            line-height: 1.6;
+        }
+        
+        .content-html h1, .content-html h2, .content-html h3, 
+        .content-html h4, .content-html h5, .content-html h6 {
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .content-html h1 { font-size: 2rem; }
+        .content-html h2 { font-size: 1.75rem; }
+        .content-html h3 { font-size: 1.5rem; }
+        .content-html h4 { font-size: 1.25rem; }
+        .content-html h5 { font-size: 1.125rem; }
+        .content-html h6 { font-size: 1rem; }
+        
+        .content-html p {
+            margin-bottom: 1rem;
+        }
+        
+        .content-html ul, .content-html ol {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+        }
+        
+        .content-html li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .content-html blockquote {
+            border-left: 4px solid #667eea;
+            padding-left: 1rem;
+            margin: 1rem 0;
+            font-style: italic;
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 0.25rem;
+        }
+        
+        .content-html code {
+            background-color: #f8f9fa;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.875rem;
+        }
+        
+        .content-html pre {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 0.25rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        
+        .content-html pre code {
+            background-color: transparent;
+            padding: 0;
+        }
+        
+        .content-html img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.25rem;
+            margin: 1rem 0;
+        }
+        
+        .content-html table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        
+        .content-html th, .content-html td {
+            border: 1px solid #dee2e6;
+            padding: 0.75rem;
+            text-align: left;
+        }
+        
+        .content-html th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+        
+        .content-html a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .content-html a:hover {
+            color: #5a6fd8;
+            text-decoration: underline;
+        }
+        
+        .content-html .btn {
+            display: inline-block;
+            margin: 0.25rem;
+        }
+        
+        .content-html .highlight {
+            background-color: #fff3cd;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+        }
+        
+        .content-html .text-center { text-align: center; }
+        .content-html .text-right { text-align: right; }
+        .content-html .text-left { text-align: left; }
+    </style>
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="{% url 'home' %}">
+                🧩 Extensions Hub
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'extensions_list' %}">All Extensions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'about_us' %}">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'contact_us' %}">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'support' %}">Support</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <div class="content-wrapper">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h5 class="text-white mb-3">Extensions Hub</h5>
+                    <p class="text-light">Your one-stop destination for amazing Chrome extensions that enhance your browsing experience.</p>
+                </div>
+                <div class="col-md-2">
+                    <h6 class="text-white mb-3">Quick Links</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="{% url 'home' %}" class="text-light text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="{% url 'extensions_list' %}" class="text-light text-decoration-none">Extensions</a></li>
+                        <li class="mb-2"><a href="{% url 'about_us' %}" class="text-light text-decoration-none">About Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h6 class="text-white mb-3">Support</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="{% url 'contact_us' %}" class="text-light text-decoration-none">Contact Us</a></li>
+                        <li class="mb-2"><a href="{% url 'support' %}" class="text-light text-decoration-none">Help</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h6 class="text-white mb-3">Legal</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="{% url 'privacy_policy' %}" class="text-light text-decoration-none">Privacy Policy</a></li>
+                        <li class="mb-2"><a href="{% url 'terms_of_service' %}" class="text-light text-decoration-none">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                  
+                    <p class="text-light small">Stay updated with our latest extensions and news.</p>
+                </div>
+            </div>
+            <hr class="my-4 text-light">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-0 text-light">© 2024 Chrome Extensions Hub. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0 text-light small">Made with ❤️ for Chrome users worldwide</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

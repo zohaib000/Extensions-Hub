@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Terms of Service - Chrome Extensions Hub{% endblock %}
+
+{% block meta_description %}Read our terms of service to understand the rules and guidelines for using our Chrome extensions and website.{% endblock %}
+
+{% block content %}
+<!-- Header Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="display-5 fw-bold mb-3">Terms of Service</h1>
+                <p class="lead text-muted">Please read these terms carefully before using our extensions and services.</p>
+                <small class="text-muted">Last updated: January 1, 2024</small>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Terms Content -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                {% if site_settings and site_settings.general_terms_of_service %}
+                    <div class="prose">
+                        {{ site_settings.general_terms_of_service|linebreaks }}
+                    </div>
+                {% else %}
+                    <!-- Default Terms of Service Content -->
+                    <div class="mb-5">
+                        <h2 class="h3 fw-bold mb-4">1. Acceptance of Terms</h2>
+                        <p>By accessing or using our website and Chrome extensions ("Services"), you agree to be bound by these Terms of Service ("Terms"). If you disagree with any part of these terms, then you may not access the Services.</p>
+                    </div>
+
+                    <div class="mb-5">
+                        <h2 class="h3 fw-bold mb-4">2. Description of Service</h2>
+                        <p>Extensions Hub provides Chrome browser extensions designed to enhance productivity, security, and browsing experience. Our services include:</p>
+                        <ul>
+                            <li>Chrome extension development and distribution</li>
+                            <li>Extension documentation and support</li>
+                            <li>User guides and tutorials</li>
+                            <li>Customer support services</li>
+                        </ul>
+                    </div>
+
+                    <div class="mb-5">
+                        <h2 class="h3 fw-bold mb-4">3. User Accounts and Responsibilities</h2>
+                        <p>When using our services, you agree to:</p>
+                        <ul>
+                            <li>Provide accurate, current, and complete information</li>
+                            <li>Maintain the security of your account credentials</li>
+                            <li>Use the services for lawful purposes only</li>
+                            <li>Not attempt to reverse engineer or modify our extensions</li>
+                            <li>Not use our services to violate any laws or regulations</li>
+                        </ul>
+                    </div>
+
+                    <div class="mb-5">
+                        <h2 class="h3 fw-bold mb-4">4. Extension Usage Rights</h2>
+                        <p>Subject to these Terms, we grant you a limited, non-exclusive, non-transferable license to:</p>
+                        <ul>
+                            <li>Download and install our Chrome extensions</li>
+                            <li>Use the extensions for personal or business purposes</li>
+                            <li>Access documentation and support materials</li>
+                        </ul>
+                        <p>You may not:</p>
+                        <ul>
+                            <li>Redistribute, sell, or lease our extensions</li>
+                            <li>Modify, reverse engineer, or create derivative works</li>
+                            <li>Remove copyright or proprietary notices</li>
+                            <li>Use extensions in ways that violate Chrome Web Store policies</li>
+                        </ul>
+                    </div>
+
+                    <div class="mb-5">
+                        <h2 class="h3 fw-bold mb-4">5. Privacy and Data Collection</h2>
+                        <p>Our collection and use of personal information is governed by our Privacy Policy. By using our services, you consent to the collection and use of information as outlined in our Privacy Policy.</p>
+                        <p>Our extensions may collect certain data necessary for functionality, including:</p>
+                        <ul>
+                            <li>Extension usage statistics</li>
+                            <li>Error reports and diagnostic information</li>
+                            <li>User preferences and settings</li>
+                        </ul>
+                    </div>
+
+                    <div class="mb-5">
+                        <h2 class="h3 fw-bold mb-4">6. Prohibited Uses</h2>
+                        <p>You may not use our services:</p>
+                        <ul>
+                            <li>For any unlawful purpose or to solicit unlawful acts</li>
+                            <li>To violate any international, federal, provincial, or state regulations or laws</li>
+                            <li>To transmit or procure sending of any advertising or promotional material</li>
+                            <li>To impersonate or attempt to impersonate the company or other users</li>
+                            <li>To harass, abuse, insult, harm, defame, slander, disparage, intimidate, or discriminate</li>
+                            <li>To submit false or misleading information</li>
+                        </ul>
+                    </div>
+
+                    <div class="mb-5">
+                        <h2 class="h3 fw-bold mb-4">7. Intellectual Property Rights</h2>
+                        <p>The Service and its original content, features, and functionality are and will remain the exclusive property of Extensions Hub and its licensors. The service is protected by copyright, trademark, and other laws. Our trademarks and trade dress may not be used without our prior written consent.</p>
+                    </div>
+
+                    <div class="mb-5">
+                        <h2 class="h3 fw-bold mb-4">8. Disclaimer of Warranties</h2>
+                        <p>The information on this website and our extensions are provided on an "as is" basis. To the fullest extent permitted by law, this Company:</p>
+                        <ul>
+                            <li>Excludes all representations and warranties relating to this website and its contents</li>
+                            <li>Does not warrant that the extensions will be constantly available or available at all</li>
+                            <li>Does not warrant that the information is complete, true, accurate, or non-misleading</li>
+                        </ul>
+                    </div>
+
+                    <div class="mb-5">
+                        <h2 class="h3 fw-bold mb-4">9. Limitation of Liability</h2>
+                        <p>In no event shall Extensions Hub, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from your use of the Service.</p>
+                    </div>
+
+                    <div class="mb-5">
+                        <h2 class="h3 fw-bold mb-4">10. Termination</h2>
+                        <p>We may terminate or suspend your access immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach the Terms. Upon termination, your right to use the Service will cease immediately.</p>
+                    </div>
+
+                    <div class="mb-5">
+                        <h2 class="h3 fw-bold mb-4">11. Updates and Modifications</h2>
+                        <p>We reserve the right to:</p>
+                        <ul>
+                            <li>Update, modify, or discontinue extensions at any time</li>
+                            <li>Change these Terms of Service with reasonable notice</li>
+                            <li>Modify pricing for premium features (if applicable)</li>
+                        </ul>
+                        <p>Continued use of our services after changes constitutes acceptance of the new terms.</p>
+                    </div>
+
+                    <div class="mb-5">
+                        <h2 class="h3 fw-bold mb-4">12. Governing Law</h2>
+                        <p>These Terms shall be interpreted and governed by the laws of the jurisdiction in which our company is registered, without regard to its conflict of law provisions. Our failure to enforce any right or provision of these Terms will not be considered a waiver of those rights.</p>
+                    </div>
+
+                    <div class="mb-5">
+                        <h2 class="h3 fw-bold mb-4">13. Contact Information</h2>
+                        <p>If you have any questions about these Terms of Service, please contact us:</p>
+                        <ul class="list-unstyled">
+                            <li><strong>Email:</strong> 
+                                {% if site_settings and site_settings.contact_email %}
+                                    <a href="mailto:{{ site_settings.contact_email }}">{{ site_settings.contact_email }}</a>
+                                {% else %}
+                                    <a href="mailto:huzaifakalas897@gmail.com">huzaifakalas897@gmail.com</a>
+                                {% endif %}
+                            </li>
+                            <li><strong>Contact Form:</strong> <a href="{% url 'contact_us' %}">Contact Us Page</a></li>
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Related Links -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h3 class="fw-bold mb-4">Related Information</h3>
+                <div class="d-flex flex-wrap justify-content-center gap-3">
+                    <a href="{% url 'privacy_policy' %}" class="btn btn-outline-primary">Privacy Policy</a>
+                    <a href="{% url 'contact_us' %}" class="btn btn-outline-primary">Contact Us</a>
+                    <a href="{% url 'support' %}" class="btn btn-outline-primary">Support Center</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

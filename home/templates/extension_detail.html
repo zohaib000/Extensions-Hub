@@ -1,0 +1,236 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ extension.title }} - Chrome Extension{% endblock %}
+
+{% block meta_description %}{{ extension.meta_description|default:extension.short_description }}{% endblock %}
+{% block meta_keywords %}{{ extension.meta_keywords }}, chrome extension, browser extension{% endblock %}
+
+{% block content %}
+<!-- Extension Header -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-4 text-center mb-4 mb-md-0">
+                <img src="{{ extension.main_image.url }}" class="img-fluid rounded shadow" alt="{{ extension.title }}">
+            </div>
+            <div class="col-md-8">
+                <h1 class="display-5 fw-bold mb-3">{{ extension.title }}</h1>
+                <p class="lead text-muted mb-4">{{ extension.short_description }}</p>
+                
+                <div class="d-flex flex-wrap gap-3 mb-4">
+                    <a href="{{ extension.chrome_store_url }}" target="_blank" class="btn btn-primary btn-lg">
+                        <i class="fab fa-chrome me-2"></i>Add to Chrome
+                    </a>
+                    {% if extension.rating > 0 %}
+                    <div class="d-flex align-items-center">
+                        <div class="me-3">
+                            <i class="fas fa-star text-warning"></i>
+                            <strong>{{ extension.rating }}/5.00</strong>
+                        </div>
+                        {% if extension.downloads > 0 %}
+                        <div>
+                            <i class="fas fa-download text-muted"></i>
+                            <span class="text-muted">{{ extension.downloads|floatformat:0 }} downloads</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Extension Content -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Description -->
+                <div class="mb-5">
+                    <h2 class="h3 fw-bold mb-3">About {{ extension.title }}</h2>
+                    <div class="content-html">
+                        {{ extension.full_description|safe }}
+                    </div>
+                </div>
+
+                <!-- YouTube Video -->
+                {% if extension.get_youtube_embed_url %}
+                <div class="mb-5">
+                    <h2 class="h3 fw-bold mb-3">Demo Video</h2>
+                    <div class="ratio ratio-16x9">
+                        <iframe src="{{ extension.get_youtube_embed_url }}" 
+                                title="YouTube video player" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen
+                                class="rounded shadow">
+                        </iframe>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Screenshots -->
+                {% if extension.screenshot_1 or extension.screenshot_2 or extension.screenshot_3 %}
+                <div class="mb-5">
+                    <h2 class="h3 fw-bold mb-3">Screenshots</h2>
+                    <div class="row">
+                        {% if extension.screenshot_1 %}
+                        <div class="col-md-4 mb-3">
+                            <img src="{{ extension.screenshot_1.url }}" class="img-fluid rounded shadow-sm" alt="Screenshot 1">
+                        </div>
+                        {% endif %}
+                        {% if extension.screenshot_2 %}
+                        <div class="col-md-4 mb-3">
+                            <img src="{{ extension.screenshot_2.url }}" class="img-fluid rounded shadow-sm" alt="Screenshot 2">
+                        </div>
+                        {% endif %}
+                        {% if extension.screenshot_3 %}
+                        <div class="col-md-4 mb-3">
+                            <img src="{{ extension.screenshot_3.url }}" class="img-fluid rounded shadow-sm" alt="Screenshot 3">
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- FAQ -->
+                {% if extension.faq %}
+                <div class="mb-5">
+                    <h2 class="h3 fw-bold mb-3">Frequently Asked Questions</h2>
+                    {% with faq_items=extension.get_faq_items %}
+                        {% if faq_items %}
+                            <!-- Structured Q&A format -->
+                            <div class="accordion" id="faqAccordion">
+                                {% for faq in faq_items %}
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="heading{{ forloop.counter }}">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="false">
+                                            {{ faq.question }}
+                                        </button>
+                                    </h2>
+                                    <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                        <div class="accordion-body">
+                                            {{ faq.answer|linebreaks }}
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <!-- HTML format or simple text -->
+                            <div class="bg-light p-4 rounded content-html">
+                                {{ extension.faq|safe }}
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <div class="position-sticky" style="top: 100px;">
+                    <!-- Download Card -->
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Get {{ extension.title }}</h5>
+                            <p class="text-muted small">Available for Chrome Browser</p>
+                            <a href="{{ extension.chrome_store_url }}" target="_blank" class="btn btn-primary btn-lg w-100 mb-3">
+                                <i class="fab fa-chrome me-2"></i>Install Extension
+                            </a>
+                            <small class="text-muted">Free • Safe • Trusted</small>
+                        </div>
+                    </div>
+
+                    <!-- Extension Info -->
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-body">
+                            <h6 class="card-title">Extension Information</h6>
+                            <ul class="list-unstyled mb-0">
+                                {% if extension.rating > 0 %}
+                                <li class="mb-2">
+                                    <strong>Rating:</strong>
+                                    <div class="d-inline">
+                                        {% for i in "12345" %}
+                                            {% if forloop.counter <= extension.rating %}
+                                                <i class="fas fa-star text-warning"></i>
+                                            {% else %}
+                                                <i class="far fa-star text-muted"></i>
+                                            {% endif %}
+                                        {% endfor %}
+                                        <span class="ms-1">{{ extension.rating }}/5</span>
+                                    </div>
+                                </li>
+                                {% endif %}
+                                {% if extension.downloads > 0 %}
+                                <li class="mb-2">
+                                    <strong>Downloads:</strong> {{ extension.downloads|floatformat:0 }}
+                                </li>
+                                {% endif %}
+                                <li class="mb-2">
+                                    <strong>Last Updated:</strong> {{ extension.updated_at|date:"M d, Y" }}
+                                </li>
+                                <li class="mb-2">
+                                    <strong>Added:</strong> {{ extension.created_at|date:"M d, Y" }}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Support Links -->
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-body">
+                            <h6 class="card-title">Support & Legal</h6>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2">
+                                    <a href="{% url 'contact_us' %}" class="text-decoration-none">
+                                        <i class="fas fa-headset me-2"></i>Get Support
+                                    </a>
+                                </li>
+                                <li class="mb-2">
+                                    <a href="{% url 'extension_privacy_policy' extension.slug %}" class="text-decoration-none">
+                                        <i class="fas fa-shield-alt me-2"></i>Privacy Policy
+                                    </a>
+                                </li>
+                                <li class="mb-2">
+                                    <a href="{% url 'extension_terms_of_service' extension.slug %}" class="text-decoration-none">
+                                        <i class="fas fa-file-contract me-2"></i>Terms of Service
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Related Extensions -->
+{% if related_extensions %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="h3 fw-bold mb-4 text-center">You Might Also Like</h2>
+        <div class="row">
+            {% for related in related_extensions %}
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card extension-card h-100 shadow-sm border-0">
+                    <img src="{{ related.main_image.url }}" class="card-img-top" alt="{{ related.title }}" style="height: 180px; object-fit: cover;">
+                    <div class="card-body d-flex flex-column">
+                        <h6 class="card-title">{{ related.title }}</h6>
+                        <p class="card-text text-muted small flex-grow-1">{{ related.short_description|truncatechars:80 }}</p>
+                        <div class="d-grid gap-2 mt-2">
+                            <a href="{{ related.get_absolute_url }}" class="btn btn-outline-primary btn-sm">View Details</a>
+                            <a href="{{ related.chrome_store_url }}" target="_blank" class="btn btn-primary btn-sm">Chrome Store</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

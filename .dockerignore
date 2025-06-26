@@ -1,0 +1,13 @@
+.git
+.gitignore
+README.md
+Dockerfile
+.dockerignore
+__pycache__
+*.pyc
+.env
+db.sqlite3
+media/
+staticfiles/
+.DS_Store
+*.log

@@ -159,7 +159,7 @@ THUMBNAIL_ALIASES = {
 }
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
-CSRF_TRUSTED_ORIGINS = ["https://*.railway.app"]
+CSRF_TRUSTED_ORIGINS = ["https://*.railway.app","https://chromee-extensions.com"]
 
 
 

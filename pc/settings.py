@@ -15,7 +15,8 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = "django-insecure-n=tcx0_e_)0s0$k-20$#=m9+)t9afcmt7rtoi^g64a$59u4ak="
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -158,10 +159,18 @@ THUMBNAIL_ALIASES = {
 }
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
-CSRF_TRUSTED_ORIGINS = ["https://bb05-154-81-244-61.ngrok-free.app"]
+CSRF_TRUSTED_ORIGINS = ["https://*.railway.app"]
 
 
 
 # Image upload settings
 FILE_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024  # 10MB
 DATA_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024  # 10MB
+
+
+
+# Security settings for production
+if not DEBUG:
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    X_FRAME_OPTIONS = 'DENY'

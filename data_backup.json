@@ -1,0 +1,1 @@
+[{"model": "home.extension", "pk": 1, "fields": {"title": "Realtime Auto Translator", "slug": "realtime-auto-translator", "short_description": "Instantly translate text in real-time as you type. Support for 100+ languages with per-tab enable/disable control.", "full_description": 

@@ -7,4 +7,3 @@ easy-thumbnails
 django-crispy-forms
 crispy-bootstrap4
 django-extensions
-EOF

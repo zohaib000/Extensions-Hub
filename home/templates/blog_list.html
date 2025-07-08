@@ -1,0 +1,229 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Blog - Chrome Extensions Insights and Tutorials{% endblock %}
+
+{% block meta_description %}Discover insights, tutorials, and tips about Chrome extensions. Learn how to maximize your productivity with browser extensions.{% endblock %}
+
+{% block content %}
+<!-- Header Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="display-5 fw-bold mb-3">Extension Insights & Tutorials</h1>
+                <p class="lead text-muted">Discover tips, tutorials, and insights about Chrome extensions to boost your productivity</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Filters and Search -->
+<section class="py-4 bg-primary">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <form method="GET" class="d-flex gap-3">
+                    <!-- Search Input -->
+                    <div class="flex-grow-1">
+                        <input type="text" name="search" class="form-control form-control-lg" 
+                               placeholder="Search blog posts..." value="{{ search_query|default:'' }}">
+                    </div>
+                    
+                    <!-- Extension Filter -->
+                    <div class="flex-shrink-0">
+                        <select name="extension" class="form-select form-select-lg">
+                            <option value="">All Extensions</option>
+                            {% for extension in extensions %}
+                                <option value="{{ extension.slug }}" 
+                                        {% if current_extension == extension.slug %}selected{% endif %}>
+                                    {{ extension.title }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <!-- Search Button -->
+                    <div class="flex-shrink-0">
+                        <button type="submit" class="btn btn-light btn-lg">
+                            🔍 Search
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Blog Posts Grid -->
+<section class="py-5">
+    <div class="container">
+        <!-- Results Info -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <p class="text-muted mb-0">
+                        {% if page_obj.paginator.count %}
+                            Showing {{ page_obj.start_index }}-{{ page_obj.end_index }} of {{ page_obj.paginator.count }} blog posts
+                        {% endif %}
+                    </p>
+                    {% if search_query or current_extension %}
+                    <a href="{% url 'blog_list' %}" class="btn btn-outline-secondary">Clear Filters</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            {% for blog in blogs %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <article class="card h-100 shadow-sm border-0 blog-card">
+                    <!-- Featured Image -->
+                    {% if blog.featured_image %}
+                    <div class="blog-image-container" style="height: 200px; overflow: hidden;">
+                        <img src="{{ blog.featured_image.url }}" 
+                             class="card-img-top" 
+                             alt="{{ blog.featured_image_alt|default:blog.title }}"
+                             >
+                    </div>
+                    {% else %}
+                    <div class="card-img-top bg-gradient d-flex align-items-center justify-content-center" style="height: 200px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <h4 class="text-white text-center px-3">{{ blog.title|truncatechars:50 }}</h4>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="card-body d-flex flex-column">
+                        <!-- Blog Meta -->
+                        <div class="mb-2">
+                            {% if blog.related_extension %}
+                            <span class="badge bg-primary me-2">{{ blog.related_extension.title }}</span>
+                            {% endif %}
+                            <small class="text-muted">{{ blog.get_reading_time }}</small>
+                        </div>
+                        
+                        <!-- Title -->
+                        <h5 class="card-title">
+                            <a href="{{ blog.get_absolute_url }}" class="text-decoration-none text-dark">
+                                {{ blog.title }}
+                            </a>
+                        </h5>
+                        
+                        <!-- Excerpt -->
+                        <p class="card-text text-muted flex-grow-1">{{ blog.excerpt|truncatechars:120 }}</p>
+                        
+                        <!-- Blog Footer -->
+                        <div class="mt-auto">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">
+                                    📅 {{ blog.publish_date|date:"M d, Y" }}
+                                    {% if blog.view_count > 0 %}
+                                        • 👁️ {{ blog.view_count }} views
+                                    {% endif %}
+                                </small>
+                                <a href="{{ blog.get_absolute_url }}" class="btn btn-outline-primary btn-sm">
+                                    Read More →
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            {% empty %}
+            <!-- No blogs found -->
+            <div class="col-12 text-center py-5">
+                <div class="py-5">
+                    <i class="text-muted" style="font-size: 4rem;">📝</i>
+                    <h3 class="mt-3 text-muted">No Blog Posts Found</h3>
+                    {% if search_query %}
+                        <p class="text-muted">No posts match your search for "{{ search_query }}"</p>
+                        <a href="{% url 'blog_list' %}" class="btn btn-primary">View All Posts</a>
+                    {% else %}
+                        <p class="text-muted">We're working on adding great content. Check back soon!</p>
+                        <a href="{% url 'home' %}" class="btn btn-primary">Back to Home</a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Pagination -->
+        {% if page_obj.has_other_pages %}
+        <nav aria-label="Blog pagination" class="mt-5">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1{% if search_query %}&search={{ search_query }}{% endif %}{% if current_extension %}&extension={{ current_extension }}{% endif %}" aria-label="First">
+                            <span aria-hidden="true">&laquo;&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if current_extension %}&extension={{ current_extension }}{% endif %}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+                
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <li class="page-item active" aria-current="page">
+                            <span class="page-link">{{ num }}</span>
+                        </li>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ num }}{% if search_query %}&search={{ search_query }}{% endif %}{% if current_extension %}&extension={{ current_extension }}{% endif %}">{{ num }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+                
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if current_extension %}&extension={{ current_extension }}{% endif %}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if search_query %}&search={{ search_query }}{% endif %}{% if current_extension %}&extension={{ current_extension }}{% endif %}" aria-label="Last">
+                            <span aria-hidden="true">&raquo;&raquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5 bg-light">
+    <div class="container text-center">
+        <h2 class="h3 fw-bold mb-3">Want to Stay Updated?</h2>
+        <p class="lead mb-4">Get the latest tips and tutorials about Chrome extensions delivered to your inbox.</p>
+        <div class="row">
+            <div class="col-lg-6 mx-auto">
+                <div class="d-flex gap-2">
+                    <input type="email" class="form-control" placeholder="Enter your email">
+                    <button class="btn btn-primary">Subscribe</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.blog-card {
+    transition: transform 0.2s ease;
+}
+
+.blog-card:hover {
+    transform: translateY(-5px);
+}
+
+.blog-image-container img {
+    transition: transform 0.3s ease;
+}
+
+.blog-card:hover .blog-image-container img {
+    transform: scale(1.05);
+}
+</style>
+{% endblock %}

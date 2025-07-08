@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.db import models
 from django.forms import Textarea
-from .models import Extension, SiteSettings
+from .models import Extension, SiteSettings, BlogPost
 
 @admin.register(Extension)
 class ExtensionAdmin(admin.ModelAdmin):
@@ -51,6 +51,68 @@ class ExtensionAdmin(admin.ModelAdmin):
             'all': ('admin/css/custom.css',)
         }
         js = ('admin/js/html-editor.js',)
+
+@admin.register(BlogPost)
+class BlogPostAdmin(admin.ModelAdmin):
+    list_display = ['title', 'related_extension', 'is_published', 'is_featured', 'view_count', 'publish_date']
+    list_filter = ['is_published', 'is_featured', 'publish_date', 'related_extension']
+    search_fields = ['title', 'content', 'meta_keywords']
+    list_editable = ['is_published', 'is_featured']
+    prepopulated_fields = {'slug': ('title',)}
+    date_hierarchy = 'publish_date'
+    
+    fieldsets = (
+        ('Content', {
+            'fields': ('title', 'slug', 'excerpt', 'content'),
+            'description': 'You can copy/paste content from Word with images and formatting directly into the content field. HTML formatting is fully supported.'
+        }),
+        ('Featured Image', {
+            'fields': ('featured_image', 'featured_image_alt'),
+        }),
+        ('Extension Relationship', {
+            'fields': ('related_extension',),
+            'description': 'Link this blog post to a specific extension for better organization and SEO.'
+        }),
+        ('SEO Optimization', {
+            'fields': ('meta_title', 'meta_description', 'meta_keywords'),
+            'description': 'SEO fields for better search engine ranking. Meta description should be compelling and under 160 characters.'
+        }),
+        ('Advanced SEO', {
+            'fields': ('canonical_url', 'og_title', 'og_description'),
+            'classes': ('collapse',),
+            'description': 'Advanced SEO settings for social media and duplicate content management.'
+        }),
+        ('Publishing', {
+            'fields': ('is_published', 'is_featured', 'author'),
+        }),
+        ('Analytics', {
+            'fields': ('view_count',),
+            'classes': ('collapse',),
+        })
+    )
+    
+    # Enhanced text fields with rich editing
+    formfield_overrides = {
+        models.TextField: {'widget': Textarea(attrs={'rows': 15, 'cols': 100, 'class': 'rich-text-editor'})},
+        models.CharField: {'widget': Textarea(attrs={'rows': 2, 'cols': 80})},
+    }
+    
+    def save_model(self, request, obj, form, change):
+        if not change:  # If creating new blog post
+            obj.author = request.user
+        super().save_model(request, obj, form, change)
+    
+    class Media:
+        css = {
+            'all': (
+                'admin/css/blog-admin.css',
+                'https://cdn.ckeditor.com/4.16.2/standard-all/contents.css',
+            )
+        }
+        js = (
+            'admin/js/blog-editor.js',
+            'https://cdn.ckeditor.com/4.16.2/full-all/ckeditor.js',
+        )
 
 @admin.register(SiteSettings)
 class SiteSettingsAdmin(admin.ModelAdmin):

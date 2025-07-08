@@ -1,12 +1,14 @@
-from django.contrib import admin
-from django.urls import path, include
-from home import views
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import views as auth_views
+from django.urls import path
+from . import views
 
 urlpatterns = [
+    # Main pages
     path('', views.home, name='home'),
     path('extensions/', views.extensions_list, name='extensions_list'),
+    
+    # Blog pages
+    path('blog/', views.blog_list, name='blog_list'),
+    path('blog/<slug:slug>/', views.blog_detail, name='blog_detail'),
     
     # Extension pages
     path('extension/<slug:slug>/', views.extension_detail, name='extension_detail'),

@@ -2,12 +2,13 @@ from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
 from django.utils.safestring import mark_safe
+from django.contrib.auth.models import User
 import re
 
 class Extension(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=2550000)
     slug = models.SlugField(unique=True, blank=True)
-    short_description = models.TextField(max_length=300)
+    short_description = models.TextField(max_length=2550000)
     full_description = models.TextField(help_text="HTML formatting supported - You can include features, how-to-use, installation guide, and any other content here using HTML")
     
     # Images
@@ -30,8 +31,8 @@ class Extension(models.Model):
     faq = models.TextField(blank=True, null=True, help_text="Use Q: and A: format OR HTML formatting")
     
     # SEO
-    meta_description = models.CharField(max_length=1000000000000000000, blank=True)
-    meta_keywords = models.CharField(max_length=1000000000000000000000, blank=True)
+    meta_description = models.CharField(max_length=2550000, blank=True)
+    meta_keywords = models.CharField(max_length=2550000, blank=True)
     
     # Extension specific policies (HTML formatting supported)
     privacy_policy = models.TextField(help_text="HTML formatting supported")
@@ -133,6 +134,83 @@ class Extension(models.Model):
             })
         
         return faq_items
+
+
+class BlogPost(models.Model):
+    title = models.CharField(max_length=200000, help_text="SEO optimized blog title")
+    slug = models.SlugField(unique=True, blank=True, help_text="Auto-generated from title")
+    
+    # Content
+    content = models.TextField(help_text="Full HTML formatting supported - You can copy/paste from Word with images and formatting")
+    excerpt = models.TextField(max_length=200000, help_text="Short description for blog listing and social media")
+    
+    # SEO Fields
+    meta_title = models.CharField(max_length=200000, blank=True, help_text="SEO title (60 chars max) - Leave blank to use main title")
+    meta_description = models.TextField(max_length=200000, help_text="SEO meta description (160 chars max)")
+    meta_keywords = models.TextField(help_text="SEO keywords separated by commas (as many as needed)")
+    
+    # Featured Image
+    featured_image = models.ImageField(upload_to='blog/images/', help_text="Main blog image for listings and social media")
+    featured_image_alt = models.CharField(max_length=200000, blank=True, help_text="Alt text for featured image (SEO)")
+    
+    # Relationships
+    related_extension = models.ForeignKey(Extension, on_delete=models.SET_NULL, null=True, blank=True, help_text="Link this blog to a specific extension")
+    author = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    
+    # Publishing
+    is_published = models.BooleanField(default=False, help_text="Publish this blog post")
+    is_featured = models.BooleanField(default=False, help_text="Feature this blog on homepage")
+    publish_date = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    # Analytics
+    view_count = models.PositiveIntegerField(default=0)
+    
+    # Additional SEO
+    canonical_url = models.URLField(blank=True, help_text="Canonical URL if this content exists elsewhere")
+    og_title = models.CharField(max_length=200000, blank=True, help_text="Open Graph title for social media")
+    og_description = models.TextField(max_length=200000, blank=True, help_text="Open Graph description for social media")
+    
+    class Meta:
+        ordering = ['-is_featured', '-publish_date']
+        verbose_name = "Blog Post"
+        verbose_name_plural = "Blog Posts"
+    
+    def __str__(self):
+        return self.title
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        
+        # Auto-fill SEO fields if empty
+        if not self.meta_title:
+            self.meta_title = self.title[:60]
+        if not self.og_title:
+            self.og_title = self.title[:100]
+        if not self.og_description:
+            self.og_description = self.excerpt[:200]
+        if not self.featured_image_alt:
+            self.featured_image_alt = f"Blog post about {self.title}"
+            
+        super().save(*args, **kwargs)
+    
+    def get_absolute_url(self):
+        return reverse('blog_detail', kwargs={'slug': self.slug})
+    
+    def get_seo_title(self):
+        """Return meta_title if set, otherwise main title"""
+        return self.meta_title if self.meta_title else self.title
+    
+    def get_reading_time(self):
+        """Estimate reading time based on content length"""
+        word_count = len(self.content.split())
+        reading_time = max(1, round(word_count / 200))  # Average 200 words per minute
+        return f"{reading_time} min read"
+    
+    def get_keywords_list(self):
+        """Return keywords as a list"""
+        return [keyword.strip() for keyword in self.meta_keywords.split(',') if keyword.strip()]
 
 class SiteSettings(models.Model):
     site_name = models.CharField(max_length=100, default="Chrome Extensions Hub")

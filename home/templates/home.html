@@ -1,7 +1,20 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Chrome Extensions Hub - Discover Amazing Browser Extensions{% endblock %}
+{% block title %}Chrome Extensions Hub - Discover Amazing Browser Extensions<!-- Call to Action -->
+<section class="py-5 bg-primary text-white">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="display-6 fw-bold mb-3">Ready to Enhance Your Browser?</h2>
+                <p class="lead mb-4">Join thousands of users who have already transformed their browsing experience with our curated extension collection.</p>
+                <a href="{% url 'extensions_list' %}" class="btn btn-light btn-lg me-3">Explore Extensions</a>
+                <a href="{% url 'contact_us' %}" class="btn btn-outline-light btn-lg">Get Support</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
 
 {% block content %}
 <!-- Hero Section -->
@@ -120,17 +133,54 @@
     </div>
 </section>
 
-<!-- Call to Action -->
-<section class="py-5 bg-primary text-white">
-    <div class="container text-center">
-        <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <h2 class="display-6 fw-bold mb-3">Ready to Enhance Your Browser?</h2>
-                <p class="lead mb-4">Join thousands of users who have already transformed their browsing experience with our curated extension collection.</p>
-                <a href="{% url 'extensions_list' %}" class="btn btn-light btn-lg me-3">Explore Extensions</a>
-                <a href="{% url 'contact_us' %}" class="btn btn-outline-light btn-lg">Get Support</a>
+{% if featured_blogs %}
+<!-- Featured Blog Posts -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                <h2 class="display-5 fw-bold mb-3">Latest Insights</h2>
+                <p class="lead text-muted">Tips, tutorials, and insights about Chrome extensions</p>
             </div>
+        </div>
+        <div class="row">
+            {% for blog in featured_blogs %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 shadow-sm border-0">
+                    {% if blog.featured_image %}
+                    <img src="{{ blog.featured_image.url }}" class="card-img-top" alt="{{ blog.title }}" "">
+                    {% else %}
+                    <div class="card-img-top bg-gradient d-flex align-items-center justify-content-center" style="height: 200px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <h6 class="text-white text-center px-3">{{ blog.title|truncatechars:40 }}</h6>
+                    </div>
+                    {% endif %}
+                    <div class="card-body d-flex flex-column">
+                        {% if blog.related_extension %}
+                        <span class="badge bg-primary mb-2 align-self-start">{{ blog.related_extension.title }}</span>
+                        {% endif %}
+                        <h5 class="card-title">
+                            <a href="{{ blog.get_absolute_url }}" class="text-decoration-none text-dark">
+                                {{ blog.title|truncatechars:60 }}
+                            </a>
+                        </h5>
+                        <p class="card-text text-muted flex-grow-1">{{ blog.excerpt|truncatechars:100 }}</p>
+                        <div class="mt-auto">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">
+                                    {{ blog.publish_date|date:"M d" }} • {{ blog.get_reading_time }}
+                                </small>
+                                <a href="{{ blog.get_absolute_url }}" class="btn btn-outline-primary btn-sm">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center">
+            <a href="{% url 'blog_list' %}" class="btn btn-primary btn-lg">View All Blog Posts</a>
         </div>
     </div>
 </section>
+{% endif %}
 {% endblock %}
